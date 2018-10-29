@@ -1,8 +1,11 @@
 package com.epages.readiness;
 
-import com.google.common.collect.ImmutableMap;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.springframework.boot.actuate.health.Status.DOWN;
+import static org.springframework.boot.actuate.health.Status.UNKNOWN;
+import static org.springframework.boot.actuate.health.Status.UP;
 
-import com.epages.readiness.HealthResponse.ChildStatus;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,12 +13,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.springframework.boot.actuate.health.Status.DOWN;
-import static org.springframework.boot.actuate.health.Status.UNKNOWN;
-import static org.springframework.boot.actuate.health.Status.UP;
+import com.epages.readiness.HealthResponse.ChildStatus;
+import com.google.common.collect.ImmutableMap;
 
 @ReadinessApplicationTest
 @RunWith(SpringRunner.class)
@@ -73,7 +72,6 @@ public class HealthClientTest {
         // THEN
         then(response.getStatus()).isEqualTo(DOWN);
         then(response.getService()).isEqualTo(request.getService());
-        then(response.getChildren()).isEmpty();
         then(response.getChildrenStatus()).isEmpty();
     }
 }
